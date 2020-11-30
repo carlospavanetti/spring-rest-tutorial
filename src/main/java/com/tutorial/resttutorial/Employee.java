@@ -19,7 +19,21 @@ public class Employee {
     private Long id;
 
     @NonNull
-    private String name;
+    private String firstName;
+
+    @NonNull
+    private String lastName;
+
     @NonNull
     private String role;
+
+    public void setName(String name) {
+        String[] parts = name.split(" ");
+        this.firstName = parts[0];
+        this.lastName = parts[parts.length - 1];
+    }
+
+    public String getName() {
+        return this.firstName + " " + this.lastName;
+    }
 }
