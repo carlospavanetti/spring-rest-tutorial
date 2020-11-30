@@ -31,8 +31,8 @@ public class EmployeeController {
         var employees = repository.findAll().stream() //
                 .map(conversion::toModel) //
                 .collect(Collectors.toList());
-        return CollectionModel.of(employees, //
-                linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
+        var self = methodOn(EmployeeController.class).all();
+        return CollectionModel.of(employees, linkTo(self).withSelfRel());
     }
 
     @PostMapping("/employees")

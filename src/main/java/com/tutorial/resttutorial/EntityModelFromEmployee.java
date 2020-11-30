@@ -11,12 +11,10 @@ import org.springframework.stereotype.Component;
 public class EntityModelFromEmployee implements RepresentationModelAssembler<Employee, EntityModel<Employee>> {
     @Override
     public EntityModel<Employee> toModel(Employee employee) {
-        var selfLink = linkTo( //
-                methodOn(EmployeeController.class).one(employee.getId()) //
-        ).withSelfRel();
-        var rootLink = linkTo( //
-                methodOn(EmployeeController.class).all() //
-        ).withRel("employees");
-        return EntityModel.of(employee, selfLink, rootLink);
+        var self = methodOn(EmployeeController.class).one(employee.getId());
+
+        var root = methodOn(EmployeeController.class).all();
+        return EntityModel.of(employee, //
+                linkTo(self).withSelfRel(), linkTo(root).withRel("employees"));
     }
 }
